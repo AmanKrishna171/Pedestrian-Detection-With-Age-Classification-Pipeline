@@ -26,7 +26,7 @@ import argparse
 import warnings
 warnings.filterwarnings("ignore")
 
-
+#  Parse Argumants ####################################################################################################
 parser = argparse.ArgumentParser(description='Detect Pedestrian')
 
 parser.add_argument("-i", "--image", help="Prints the supplied argument.")
@@ -36,13 +36,11 @@ parser.add_argument("-m", "--model", help="Prints the supplied argument.")
 args = parser.parse_args()
 
 
-config_file = '/home/a/Pedestrian-Detetction-with-Age-Classification/Project_Code/testmodel/2headSAC/detectors_cascade_rcnn_r50_1x_coco_2_heads.py'
-checkpoint_file = '/home/a/Pedestrian-Detetction-with-Age-Classification/Project_Code/testmodel/2headSAC/epoch_20_2head.pth'
 
 device = 'cuda:0'
 
 
-
+# Get Arguments ####################################################################################################
 if(args.image is not None):  # if image is supplied
     img = args.image
 else:                       # if image is not supplied
@@ -52,19 +50,20 @@ image = cv2.imread(img)
 if(args.config is not None):  # if config is supplied
     config_file = args.config
 else:                       # if config is not supplied
-    config_file = './1.png'
+    config_file = 'Mymodels/Model_3/Model_3_config.py'
 image = cv2.imread(img)
 
 if(args.model is not None):  # if model is supplied
     checkpoint_file = args.model
 else:                       # if model is not supplied
-    checkpoint_file = './1.png'
+    checkpoint_file = ' Mymodels/Model_3/Model_3.pth'
 image = cv2.imread(img)
 
 
 GLOBAL_ADULT_INDEX = []
 GLOBAL_NON_ADULT_INDEX = []
 
+# Initialize the model ####################################################################################################
 model = init_detector(config_file, checkpoint_file,
                       device=device)  # init a detector
 
@@ -72,7 +71,7 @@ result = inference_detector(model, "test1.png")  # test the detector
 
 print("Model succesfully loaded\n\n\n")
 
-
+# Funtion to show the result ####################################################################################################
 def show_result_pyplot(model,
                        img,
                        result,
@@ -271,6 +270,8 @@ def show_mask_result(img, result, save_img, dataset='coco', score_thr=0.7, with_
 
 
 t = 0
+########################################################################################################################
+
 print("Detecting Pedestrains....\n")
 
 import time
@@ -283,13 +284,15 @@ result = inference_detector(model, img)
 end = time.time()
 print("The Detector Took :", end-start, "seconds\n")
 
-# if len(result) > 1:  # uncoment for models with masks
-#     result = result[0]
+if type(result) == tuple:  # for models with mask head
+    result = result[0]
 
+
+# Process The Result #####################################################################################################
 
 image = cv2.imread(img)
 
-# the code below is for only showing the pedestrians
+# the code below is for only showing the pedestrians data in the result
 counter = 0
 for i in result:
     if(counter > 0):
@@ -298,7 +301,7 @@ for i in result:
     counter += 1
 
 
-#  the code belwo is tp filter predictions with low confidence score
+#  the code below is tp filter predictions with low confidence score
 
 temp_result_1 = copy.copy(result)  # make a shallow copy of the result
 
@@ -312,9 +315,6 @@ for i in range(len(temp_result_1)):
         output_result_3.append(temp_result_1[i])
 
 result[0] = np.array(output_result_3)
-
-# print (result)
-# check here for errror
 
 
 formated_result = show_mask_result(image, result, 'result.png', showbox=True)
@@ -363,8 +363,10 @@ for bbox, label in zip(formated_result[0], formated_result[1]):
 
     total_confiednce= bbox[4] + total_confiednce
 
-print("Average Confidence is : ", total_confiednce/len(result[0]),'\n\n')
+print("Average Confidence is : ", total_confiednce/len(result[0]),'\n\n') # average confidence
 
+
+#  Funtion to classify the pedestrians ###################################################################################
 
 def classify(data_model):
     detected = {'above_16': 0, "less_than_16": 0}
@@ -460,48 +462,7 @@ def test(val_loader, model, attr_num, description):
 
         output = torch.sigmoid(output.data).cpu().numpy()
         output = np.where(output > 0.5, 1, 0)
-
-        # for it in range(attr_num):
-        #     for jt in range(batch_size):
-        #         if target[jt][it] == 1:
-        #             pos_tol[it] = pos_tol[it] + 1
-        #             if output[jt][it] == 1:
-        #                 pos_cnt[it] = pos_cnt[it] + 1
-        #         if target[jt][it] == 0:
-        #             neg_tol[it] = neg_tol[it] + 1
-        #             if output[jt][it] == 0:
-        #                 neg_cnt[it] = neg_cnt[it] + 1
-
-        # if attr_num == 1:
-        #     continue
-        # for jt in range(batch_size):
-        #     tp = 0
-        #     fn = 0
-        #     fp = 0
-        #     for it in range(attr_num):
-        #         if output[jt][it] == 1 and target[jt][it] == 1:
-        #             tp = tp + 1
-        #         elif output[jt][it] == 0 and target[jt][it] == 1:
-        #             fn = fn + 1
-        #         elif output[jt][it] == 1 and target[jt][it] == 0:
-        #             fp = fp + 1
-        #     if tp + fn + fp != 0:
-        #         accu = accu +  1.0 * tp / (tp + fn + fp)
-        #     if tp + fp != 0:
-        #         prec = prec + 1.0 * tp / (tp + fp)
-        #     if tp + fn != 0:
-        #         recall = recall + 1.0 * tp / (tp + fn)
-
-    # print('=' * 100)
-    # print('\t     Attr              \tp_true/n_true\tp_tol/n_tol\tp_pred/n_pred\tcur_mA')
-    # mA = 0.0
-    # for it in range(attr_num):
-    #     cur_mA = ((1.0*pos_cnt[it]/pos_tol[it]) + (1.0*neg_cnt[it]/neg_tol[it])) / 2.0
-    #     mA = mA + cur_mA
-    #     print('\t#{:2}: {:18}\t{:4}\{:4}\t{:4}\{:4}\t{:4}\{:4}\t{:.5f}'.format(it,description[it],pos_cnt[it],neg_cnt[it],pos_tol[it],neg_tol[it],(pos_cnt[it]+neg_tol[it]-neg_cnt[it]),(neg_cnt[it]+pos_tol[it]-pos_cnt[it]),cur_mA))
-    # mA = mA / attr_num
-    # print('\t' + 'mA:        '+str(mA))
-    
+   
     return output
 
 
@@ -629,9 +590,10 @@ class Weighted_BCELoss(object):
                                         0.4605,
                                         0.0124]).cuda()
         #self.weights = None
-
+######################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################
 
 final_result = classify('rap')
+
 print('\n')
 print("Pedestrain Classification Model has detected ",
       final_result['above_16'], " above_16 and ", final_result['less_than_16'], " person below 16.")
@@ -640,6 +602,7 @@ print('\n')
 
 image = cv2.imread(img)
 
+# Draw the bounding box on the output image ##############################################################################################################################################################################################################################
 if(len(GLOBAL_ADULT_INDEX) > 0):
     adult_result = copy.copy(result)
 
