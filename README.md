@@ -22,6 +22,6 @@
 * Pedestrain Detection Code from [[1]](https://github.com/hasanirtiza/PedesFormer-Transformer-Networks-For-Pedestrian-Detection) [[2]](https://mmdetection.readthedocs.io/en/latest/tutorials/)
 
 
-* Pedestrain Detection Code from [[1]](https://github.com/chufengt/iccv19_attribute)
+* Pedestrain Attribute Classification Code from [[1]](https://github.com/chufengt/iccv19_attribute)
 
 
