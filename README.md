@@ -14,6 +14,6 @@ Nvidia GPU with 4GB or more VRAM
 
 ### Running the pipeline
 
-#### in the terminal run: python detect.py -i "path to image" 
+#### in the terminal run: python detect.py --i "path to image" 
 
 
