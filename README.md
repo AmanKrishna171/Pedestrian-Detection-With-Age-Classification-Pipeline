@@ -1,9 +1,6 @@
 # Pedestrian-Detection-With-Age-Classification-Pipeline
 
 
-
-# Pedestrian-Detection-With-Age-Classification-Pipeline
-
 ## Minimum Requiremnts
 Linux OS (Ubuntu)
 16GB of RAM
