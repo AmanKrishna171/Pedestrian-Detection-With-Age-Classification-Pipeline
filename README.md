@@ -2,9 +2,9 @@
 
 
 ## Minimum Requiremnts
-Linux OS (Ubuntu)
-16GB of RAM
-Nvidia GPU with 4GB or more VRAM
+* Linux OS (Ubuntu)
+* 16GB of RAM
+* Nvidia GPU with 4GB or more VRAM
 
 ## Instructions 
 
