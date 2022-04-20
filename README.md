@@ -17,6 +17,12 @@
 6.  #### In the terminal run: python detect.py --i "path to image" 
 
 
+## Note
+For training the models, I have used code from [[here]](https://github.com/hasanirtiza/PedesFormer-Transformer-Networks-For-Pedestrian-Detection). To train the models further, clone that repository, download cityscapes dataset from here [here](https://www.cityscapes-dataset.com/login/) and then use the configuration files. The run 
+```
+Python tools/train.py config_file_path –resume-from model_file_path
+```
+
 ## References:
 
 * Pedestrian Detection Code from [[1]](https://github.com/hasanirtiza/PedesFormer-Transformer-Networks-For-Pedestrian-Detection) [[2]](https://mmdetection.readthedocs.io/en/latest/tutorials/)
