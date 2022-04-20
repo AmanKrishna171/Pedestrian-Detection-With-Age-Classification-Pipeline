@@ -1,8 +1,7 @@
 _base_ = [
     'detect_mine.py',
-
-    '../../datasets/cityscapes_detection.py',
-    '../../schedules/schedule_1x.py', '../../default_runtime.py'
+    '../../base_models/cityscapes_detection.py',
+    '../../base_models/schedules/schedule_1x.py', '../../base_models/default_runtime.py'
 ]
 
 

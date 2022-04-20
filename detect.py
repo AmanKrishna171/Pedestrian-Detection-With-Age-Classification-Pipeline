@@ -37,17 +37,10 @@ args = parser.parse_args()
 
 
 config_file = '/home/a/Pedestrian-Detetction-with-Age-Classification/Project_Code/testmodel/2headSAC/detectors_cascade_rcnn_r50_1x_coco_2_heads.py'
-#  '/home/a/Pedestrian-Detetction-with-Age-Classification/Project_Code/cascade_rcnn_r50_sac_1x_coco.py'
-# 'config/csp_r50.py'
-# 'faster_rcnn_r50_fpn_1x_coco.py'
-# download the checkpoint from model zoo and put it in `checkpoints/`
-# url: https://download.openmmlab.com/mmdetection/v2.0/faster_rcnn/faster_rcnn_r50_fpn_1x_coco/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth
 checkpoint_file = '/home/a/Pedestrian-Detetction-with-Age-Classification/Project_Code/testmodel/2headSAC/epoch_20_2head.pth'
-# 'csp_model.pth'
-# 'checkpoints/faster_rcnn_r50_fpn_1x_coco_20200130-047c8118.pth'
+
 device = 'cuda:0'
-# init a detector
-# model = 'checkpoints/epoch_15.pth.stu'
+
 
 
 if(args.image is not None):  # if image is supplied
@@ -55,6 +48,19 @@ if(args.image is not None):  # if image is supplied
 else:                       # if image is not supplied
     img = './1.png'
 image = cv2.imread(img)
+
+if(args.config is not None):  # if config is supplied
+    config_file = args.config
+else:                       # if config is not supplied
+    config_file = './1.png'
+image = cv2.imread(img)
+
+if(args.model is not None):  # if model is supplied
+    checkpoint_file = args.model
+else:                       # if model is not supplied
+    checkpoint_file = './1.png'
+image = cv2.imread(img)
+
 
 GLOBAL_ADULT_INDEX = []
 GLOBAL_NON_ADULT_INDEX = []

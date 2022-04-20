@@ -1,7 +1,7 @@
 _base_ = [
-    '/home/a/t/test/PedesFormer-Transformer-Networks-For-Pedestrian-Detection/configs/_base_/models/detect_mine_2.py',
-    '../../_base_/datasets/cityscapes_detection.py',
-     '../../_base_/schedules/schedule_1x.py', '../../_base_/default_runtime.py'
+    'detect_mine_2.py',
+    '../../base_models/cityscapes_detection.py',
+    '../../base_models/schedules/schedule_1x.py', '../../base_models/default_runtime.py'
 ]
 
 model = dict(
