@@ -6,12 +6,14 @@ Linux OS (Ubuntu)
 16GB of RAM
 Nvidia GPU with 4GB or more VRAM
 
-## Instructions to setup enverimentment please follow instracunions from [here](https://github.com/hasanirtiza/PedesFormer-Transformer-Networks-For-Pedestrian-Detection)
+## Instructions 
 
-## Downlaod the model and config files from [here](https://github.com/hasanirtiza/PedesFormer-Transformer-Networks-For-Pedestrian-Detection/tree/main/configs)
+### to setup enverimentment please follow instracunions from [here](https://github.com/hasanirtiza/PedesFormer-Transformer-Networks-For-Pedestrian-Detection)
 
-## Running the pipeline
+### Downlaod the model and config files from [here](https://github.com/hasanirtiza/PedesFormer-Transformer-Networks-For-Pedestrian-Detection/tree/main/configs)
 
-### in the terminal run: python detect.py -i "path to image" 
+### Running the pipeline
+
+#### in the terminal run: python detect.py -i "path to image" 
 
 
